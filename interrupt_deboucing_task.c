@@ -119,6 +119,158 @@ void frame(int num_frame){
         };
         buffer();
         break;
+    case 2:
+        // Frame 2
+        int frame2[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},        
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame2[coluna][linha][0], frame2[coluna][linha][1], frame2[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 3:
+        // Frame 3
+        int frame3[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame3[coluna][linha][0], frame3[coluna][linha][1], frame3[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 4:
+        // Frame 4
+        int frame4[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},    
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}} 
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame4[coluna][linha][0], frame4[coluna][linha][1], frame4[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 5:
+        // Frame 5
+        int frame5[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame5[coluna][linha][0], frame5[coluna][linha][1], frame5[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 6:
+        // Frame 6
+        int frame6[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}},        
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},    
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame6[coluna][linha][0], frame6[coluna][linha][1], frame6[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 7:
+        // Frame 7
+        int frame7[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}} 
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame7[coluna][linha][0], frame7[coluna][linha][1], frame7[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 8:
+        // Frame 8
+        int frame8[5][5][3] = {
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},    
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame8[coluna][linha][0], frame8[coluna][linha][1], frame8[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 9:
+        // Frame 9
+        int frame9[5][5][3] = {
+            {{0, 0, 0}, {255, 133, 0}, {255, 133, 0}, {255, 133, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {255, 133, 0}, {0, 0, 0}, {255, 133, 0}, {0, 0, 0}},    
+            {{0, 0, 0}, {255, 133, 0}, {255, 133, 0}, {255, 133, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {255, 133, 0}, {0, 0, 0}},       
+            {{0, 0, 0}, {255, 133, 0}, {255, 133, 0}, {255, 133, 0}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame9[coluna][linha][0], frame9[coluna][linha][1], frame9[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
     default:
         break;
     }
@@ -153,12 +305,12 @@ void gpio_irq_handler(uint gpio, uint32_t events){
 
         // Verifica qual botão foi clicado
         if(gpio == button_pin_A){
-
+            frame(0)
             // Registra a execução do botão A
             printf("========== Botão A executado = %d\n", a);
             a++;
         } else if(gpio == button_pin_B){
-
+            frame(5)
             // Registra a execução do botão B
             printf("========== Botão B executado = %d\n", b);
             b++;
