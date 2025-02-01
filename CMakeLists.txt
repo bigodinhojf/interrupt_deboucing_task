@@ -40,6 +40,9 @@ add_executable(interrupt_deboucing_task interrupt_deboucing_task.c )
 pico_set_program_name(interrupt_deboucing_task "interrupt_deboucing_task")
 pico_set_program_version(interrupt_deboucing_task "0.1")
 
+# Generate PIO header
+pico_generate_pio_header(interrupt_deboucing_task ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
+
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(interrupt_deboucing_task 1)
 pico_enable_stdio_usb(interrupt_deboucing_task 1)
