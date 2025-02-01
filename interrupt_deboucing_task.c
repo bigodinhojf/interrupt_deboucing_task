@@ -1,21 +1,133 @@
+/*
+--- BLOCO INICIAL ---
+- Definição de bibliotecas, constantes e variáveis globais -
+*/
+
+// Definição de bibliotecas
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/pio.h"
+#include "hardware/clocks.h"
+#include "ws2812.pio.h"
 
 // Definição dos pinos GPIO
 const int led_pin_red = 13; // LED Vermelho GPIO 13
-const int led_pin_blue = 12;
-const int led_pin_green = 11;
 const int button_pin_A = 5; // Botão A GPIO 5
 const int button_pin_B = 6; // Botão B GPIO 6
+const int matriz_leds = 7; // Matriz de LEDs GPIO 7
 
 // Definição de constantes
 #define time_blink 100 // Tempo de LED aceso e apagado
+#define NUM_LEDS 25 // Número de LEDs na matriz
 
 // Definição de variáveis globais
 static volatile uint32_t last_time = 0; // Armazena o tempo do último clique dos botões 
 static volatile uint a = 1; // Armazena a execução do botão A
 static volatile uint b = 1; // Armazena a execução do botão B
 static volatile uint bounce = 1; // Armazena o fenômeno de bouncing
+
+
+/*
+--- BLOCO DE PIO ---
+- Configuração do PIO e funções de manipulação da matriz de LEDs -
+*/
+
+// Estrutura do pixel GRB (Padrão do WS2812)
+struct pixel_t {
+    uint8_t G, R, B; // Define variáveis de 8-bits (0 a 255) para armazenar a cor
+};
+typedef struct pixel_t npLED_t; // Permite declarar variáveis utilizando apenas "npLED_t"
+
+// Declaração da Array que representa a matriz de LEDs
+npLED_t leds[NUM_LEDS];
+
+// Função para definir a cor de um LED específico
+void cor(const uint index, const uint8_t r, const uint8_t g, const uint8_t b) {
+    leds[index].R = r;
+    leds[index].G = g;
+    leds[index].B = b;
+}
+
+// Função para desligar todos os LEDs
+void desliga() {
+    for (uint i = 0; i < TOTAL_LEDS; ++i) {
+        cor(i, 0, 0, 0);
+    }
+}
+
+// Função para enviar o estado atual dos LEDs ao hardware  - buffer de saída
+void buffer() {
+    for (uint i = 0; i < TOTAL_LEDS; ++i) {
+        pio_sm_put_blocking(np_pio, sm, leds[i].G);
+        pio_sm_put_blocking(np_pio, sm, leds[i].R);
+        pio_sm_put_blocking(np_pio, sm, leds[i].B);
+    }
+    sleep_us(100);
+}
+
+// Função para converter a posição da matriz para uma posição do vetor.
+int getIndex(int x, int y) {
+    // Se a linha for par (0, 2, 4), percorremos da esquerda para a direita.
+    // Se a linha for ímpar (1, 3), percorremos da direita para a esquerda.
+    if (y % 2 == 0) {
+        return 24-(y * 5 + x); // Linha par (esquerda para direita).
+    } else {
+        return 24-(y * 5 + (4 - x)); // Linha ímpar (direita para esquerda).
+    }
+}
+
+// Função que guarda os frames dos números
+void frame(int num_frame){
+    desliga();
+
+    switch (num_frame){
+    case 0:
+        // Frame 0
+        int frame0[5][5][3] = {
+            {{0, 0, 0}, {255, 133, 0}, {255, 133, 0}, {255, 133, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {255, 133, 0}, {0, 0, 0}, {255, 133, 0}, {0, 0, 0}},    
+            {{0, 0, 0}, {255, 133, 0}, {0, 0, 0}, {255, 133, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {255, 133, 0}, {0, 0, 0}, {255, 133, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {255, 133, 0}, {255, 133, 0}, {255, 133, 0}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame0[coluna][linha][0], frame0[coluna][linha][1], frame0[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    case 1:
+        // Frame 1
+        int frame1[5][5][3] = {
+            {{0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 0, 0}, {0, 245, 255}, {0, 0, 0}, {0, 0, 0}},
+            {{0, 0, 0}, {0, 245, 255}, {0, 245, 255}, {0, 245, 255}, {0, 0, 0}}
+        };
+        for (int linha = 0; linha < 5; linha++)
+        {
+            for (int coluna = 0; coluna < 5; coluna++)
+            {
+            int posicao = getIndex(linha, coluna);
+            cor(posicao, frame1[coluna][linha][0], frame1[coluna][linha][1], frame1[coluna][linha][2]);
+            }
+        };
+        buffer();
+        break;
+    default:
+        break;
+    }
+}
+
+/*
+--- BLOCO DE FUNÇÕES GPIO ---
+- Funções de manipulação dos pinos GPIO -
+*/
 
 // Função para o LED piscar 5 vezes por segundo
 void loop_led_blink(){
@@ -41,13 +153,11 @@ void gpio_irq_handler(uint gpio, uint32_t events){
 
         // Verifica qual botão foi clicado
         if(gpio == button_pin_A){
-            gpio_put(led_pin_blue, !gpio_get(led_pin_blue));
 
             // Registra a execução do botão A
             printf("========== Botão A executado = %d\n", a);
             a++;
         } else if(gpio == button_pin_B){
-            gpio_put(led_pin_green, !gpio_get(led_pin_green));
 
             // Registra a execução do botão B
             printf("========== Botão B executado = %d\n", b);
@@ -57,19 +167,20 @@ void gpio_irq_handler(uint gpio, uint32_t events){
 
 }
 
+
+/*
+--- BLOCO PRINCIPAL ---
+- Função principal do código -
+*/
+
 int main()
 {
     // Inicialização das saídas padrão (UART e USB)
     stdio_init_all();
 
     // Inicialização dos pinos GPIO
-
     gpio_init(led_pin_red); // Inicializa o pino 13 do LED Vermelho
     gpio_set_dir(led_pin_red, GPIO_OUT); // Configura o pino 13 do LED Vermelho como saída
-    gpio_init(led_pin_blue);
-    gpio_set_dir(led_pin_blue, GPIO_OUT);
-    gpio_init(led_pin_green);
-    gpio_set_dir(led_pin_green, GPIO_OUT);
 
     gpio_init(button_pin_A); // Inicializa o pino do botão A
     gpio_set_dir(button_pin_A, GPIO_IN); // Configura o pino do botão A como entrada
@@ -78,6 +189,13 @@ int main()
     gpio_init(button_pin_B); // Inicializa o pino do botão B
     gpio_set_dir(button_pin_B, GPIO_IN); // Configura o pino do botão B como entrada
     gpio_pull_up(button_pin_B); // Habilita o pull up interno no botão B
+
+    // Inicializar o PIO para controle da matriz de LEDs
+    PIO np_pio = pio0;
+    uint sm = pio_claim_unused_sm(np_pio, true);
+    uint offset = pio_add_program(pio0, &ws2812_program);
+    ws2812_program_init(np_pio, sm, offset, matriz_leds, 800000);
+    desliga(); // Para limpar o buffer dos LEDs
 
     // Função de interrupção dos botões A e B
     gpio_set_irq_enabled_with_callback(button_pin_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
