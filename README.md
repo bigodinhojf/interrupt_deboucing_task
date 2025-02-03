@@ -86,7 +86,7 @@ ninja
 
 ## Vídeo de apresentação
 
-O vídeo apresentando o projeto pode ser assistido [clicando aqui](https://youtu.be/1QEjPJj_qPw?si=UpAHRpuFx98-ac0k).
+O vídeo apresentando o projeto pode ser assistido [clicando aqui](https://youtu.be/vi-1jh6bHWo).
 
 ## Aluno e desenvolvedor do projeto
 
