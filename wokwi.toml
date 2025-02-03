@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/interrupt_deboucing_task.uf2'
+elf = 'build/interrupt_deboucing_task.elf'

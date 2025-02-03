@@ -307,6 +307,7 @@ void loop_led_blink(){
     sleep_ms(time_blink);
 }
 
+// Função que reporta o erro quando incrementa em 9 e decrementa em 0
 void erro(int erro){
     if(erro == 1){
         desliga();
@@ -373,7 +374,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
     printf("Fenômeno de bounce = %d\n", bounce);
     bounce++;
 
-    // 50 ms
+    // 200 ms
     if(current_time - last_time > 200000){
         last_time = current_time; // Atualização de tempo do último clique
 
