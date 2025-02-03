@@ -66,7 +66,7 @@ Este projeto implementa um sistema interativo utilizando a placa de desenvolvime
 1. **Clonar o Repositório**:
 
 ```bash
-git clone https://github.com/ferreiiratech/embarcatech-subgrupo-06-u4-microcontroladores-atividade-3.git
+git clone https://github.com/bigodinhojf/interrupt_deboucing_task.git
 ```
 
    
